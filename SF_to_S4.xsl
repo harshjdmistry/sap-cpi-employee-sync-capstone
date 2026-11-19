@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" indent="yes"/>
+  <xsl:param name="CreatedOn"/>
+  <xsl:param name="Timestamp"/>
   <xsl:template match="/">
-    <Employees>
+    <EmpdetailsSet>
       <xsl:for-each select="//User/User">
-        <Employee>
+        <Empdetails>
           <Mandt>500</Mandt>
-          <Participantid>Harsh Mistry</Participantid>
+          <Participantid>
+            <xsl:value-of select="concat('Harsh Mistry ', $Timestamp, '-', position())"/>
+          </Participantid>
           <Country>
             <xsl:value-of select="translate(country,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
           </Country>
@@ -16,8 +20,11 @@
           <City>
             <xsl:value-of select="city"/>
           </City>
-        </Employee>
+          <Createdon>
+            <xsl:value-of select="$CreatedOn"/>
+          </Createdon>
+        </Empdetails>
       </xsl:for-each>
-    </Employees>
+    </EmpdetailsSet>
   </xsl:template>
 </xsl:stylesheet>
